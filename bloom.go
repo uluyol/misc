@@ -23,7 +23,7 @@ func (bs Bitstring) Set(n uint) {
 func (bs Bitstring) Get(n uint) bool {
 	pos := n / 8
 	bit := n % 8
-	return (bs[pos] >> bit) & 1 == 1
+	return (bs[pos]>>bit)&1 == 1
 }
 
 func (bs Bitstring) String() string {
@@ -104,7 +104,7 @@ func (bf *BloomFilter) Has(v interface{}) (bool, error) {
 
 	contains := true
 	for _, h := range hashes {
-		contains = contains && bf.bits.Get(h % bf.bits.Len())
+		contains = contains && bf.bits.Get(h%bf.bits.Len())
 	}
 	return contains, nil
 }
