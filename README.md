@@ -3,7 +3,7 @@ About
 ===
 This repository contains toy implementations of various things for personal interest. I would not recommend using anything here for anything important though everything is under the MIT license.
 
-Incomplete table with descriptions
+Incomplete table with descriptions:
 
 | File           | Description |
 |:-------------- |:---------------------------------------------------------- |
