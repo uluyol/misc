@@ -1,14 +1,16 @@
+/* Binary Search Tree Implementation. Doesn't store duplicates. */
+
 package main
 
 import "fmt"
 
 type Comparable interface {
-	Compare(b Comparable) int // <0 for less, 0 for equals, >1 for b greater
+	Cmp(b Comparable) int // <0 for less, 0 for equals, >1 for b greater
 }
 
 type Num int
 
-func (a Num) Compare(c Comparable) int {
+func (a Num) Cmp(c Comparable) int {
 	b := c.(Num)
 	return int(b - a)
 }
@@ -20,30 +22,34 @@ type Node struct {
 }
 
 type Tree struct {
-	Root   *Node
-	Height int
+	Root *Node
 }
 
-func (n *Node) insert(c *Node, depth int) int {
-	if n.V.Compare(c.V) <= 0 {
+func (n *Node) insert(c *Node) {
+	cmp := n.V.Cmp(c.V)
+	if cmp == 0 {
+		return
+	}
+	if cmp < 0 {
 		if n.Left == nil {
 			n.Left = c
-			return depth + 1
+			return
 		}
-		return n.Left.insert(c, depth+1)
+		n.Left.insert(c)
+		return
 	}
 	if n.Right == nil {
 		n.Right = c
-		return depth + 1
+		return
 	}
-	return n.Right.insert(c, depth+1)
+	n.Right.insert(c)
 }
 
 func (n *Node) search(v Comparable) bool {
 	if n == nil {
 		return false
 	}
-	c := n.V.Compare(v)
+	c := n.V.Cmp(v)
 	if c == 0 {
 		return true
 	}
@@ -53,24 +59,16 @@ func (n *Node) search(v Comparable) bool {
 	return n.Right.search(v)
 }
 
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}
-
-func (t *Tree) Insert(v Comparable) {
+func (t *Tree) Add(v Comparable) {
 	n := new(Node)
 	n.V = v
 
 	if t.Root == nil {
 		t.Root = n
-		t.Height = 1
 		return
 	}
 
-	t.Height = max(t.Height, t.Root.insert(n, 1))
+	t.Root.insert(n)
 }
 
 func (t *Tree) Has(v Comparable) bool {
@@ -94,12 +92,12 @@ func (t *Tree) String() string {
 
 func main() {
 	t := new(Tree)
-	t.Insert(Num(5))
-	t.Insert(Num(2))
-	t.Insert(Num(1))
-	t.Insert(Num(100))
+	t.Add(Num(5))
+	t.Add(Num(5))
+	t.Add(Num(2))
+	t.Add(Num(1))
+	t.Add(Num(100))
 	fmt.Println("content:", t)
-	fmt.Println("height :", t.Height)
 	fmt.Println("has 100:", t.Has(Num(100)))
 	fmt.Println("has 2  :", t.Has(Num(2)))
 	fmt.Println("has 4  :", t.Has(Num(4)))
