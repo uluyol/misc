@@ -10,6 +10,7 @@ Incomplete table with descriptions:
 | bit-manipulation.c | Fun with bits in C. Implemented unsigned long printing with base 2 and insertion of N into M's [i,j]th bits. This assumes that N fits within those bits. |
 | bloom.cc | Basic bloom filter implementation in C++ |
 | bloom.go | Basic bloom filter implementation in Go |
+| bst.go | Basic binary search tree implementation in Go |
 | cache.go | LRU Cache implementation in Go (hashtable and doubly linked lists) |
 | data-structs.c  | Implementation of a stack and hashtable in C |
 | data-structs.cc | Implementation of a stack and hashtable in C++ |
