@@ -28,13 +28,13 @@ func (n *Node) insert(c *Node, depth int) int {
 	if n.V.Compare(c.V) <= 0 {
 		if n.Left == nil {
 			n.Left = c
-			return depth
+			return depth + 1
 		}
 		return n.Left.insert(c, depth+1)
 	}
 	if n.Right == nil {
 		n.Right = c
-		return depth
+		return depth + 1
 	}
 	return n.Right.insert(c, depth+1)
 }
@@ -96,6 +96,7 @@ func main() {
 	t := new(Tree)
 	t.Insert(Num(5))
 	t.Insert(Num(2))
+	t.Insert(Num(1))
 	t.Insert(Num(100))
 	fmt.Println("content:", t)
 	fmt.Println("height :", t.Height)
