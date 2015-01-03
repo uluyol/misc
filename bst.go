@@ -75,6 +75,34 @@ func (t *Tree) Has(v Comparable) bool {
 	return t.Root.search(v)
 }
 
+func recursiveRemove(n **Node, v Comparable) bool {
+	if *n == nil {
+		return false
+	}
+	cmp := (*n).V.Cmp(v)
+	if cmp < 0 {
+		return recursiveRemove(&(*n).Left, v)
+	} else if cmp > 0 {
+		return recursiveRemove(&(*n).Right, v)
+	}
+	// Found
+	if (*n).Left == nil && (*n).Right == nil {
+		*n = nil
+	} else if (*n).Left == nil {
+		*n = (*n).Right
+	} else if (*n).Right == nil {
+		*n = (*n).Left
+	} else {
+		(*n).V = (*n).Right.V
+		recursiveRemove(&(*n).Right, (*n).V)
+	}
+	return true
+}
+
+func (t *Tree) Remove(v Comparable) bool {
+	return recursiveRemove(&t.Root, v)
+}
+
 func (n *Node) String() string {
 	s := fmt.Sprint(n.V)
 	if n.Left != nil {
@@ -102,4 +130,7 @@ func main() {
 	fmt.Println("has 2  :", t.Has(Num(2)))
 	fmt.Println("has 4  :", t.Has(Num(4)))
 	fmt.Println("has 5  :", t.Has(Num(5)))
+	t.Remove(Num(5))
+	fmt.Println("has 5  :", t.Has(Num(5)))
+	fmt.Println("content:", t)
 }
