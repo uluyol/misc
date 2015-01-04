@@ -27,10 +27,10 @@ var byteDist = []int8{
 func Distance(a, b uint64) int8 {
 	d := a ^ b
 	buf := make([]byte, 8)
-	binary.PutUvarint(buf, d)
+	n := binary.PutUvarint(buf, d)
 	dist := int8(0)
-	for _, v := range buf {
-		dist += byteDist[v]
+	for i := 0; i < n; i++ {
+		dist += byteDist[buf[i]]
 	}
 	return dist
 }
