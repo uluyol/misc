@@ -14,6 +14,7 @@ Incomplete table with descriptions:
 | cache.go | LRU Cache implementation in Go (hashtable and doubly linked lists) |
 | data-structs.c  | Implementation of a stack and hashtable in C |
 | data-structs.cc | Implementation of a stack and hashtable in C++ |
+| hamming_distance.go | Hamming distance computation |
 | huffman.go | Basic Huffman Coding |
 | inverted_index.cc | An interactive program to query for files that contain certain text (exact string matches) |
 | malloc.go | A malloc implementation (maybe?) in Go. Please **don't** use this. |
