@@ -12,6 +12,7 @@ Incomplete table with descriptions:
 | bloom.go | Basic bloom filter implementation in Go |
 | bst.go | Basic binary search tree implementation in Go |
 | cache.go | LRU Cache implementation in Go (hashtable and doubly linked lists) |
+| chatbox.go | Simple chatbox |
 | data-structs.c  | Implementation of a stack and hashtable in C |
 | data-structs.cc | Implementation of a stack and hashtable in C++ |
 | hamming_distance.go | Hamming distance computation |
