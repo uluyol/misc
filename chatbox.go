@@ -171,7 +171,6 @@ func main() {
 		chat.add(prev, cur)
 		prev = cur
 		cur = chat.getBest(prev)
-		//		chat.add(prev, cur)
 		prev = cur
 	}
 }
