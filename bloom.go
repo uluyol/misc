@@ -8,24 +8,29 @@ import (
 	"hash/fnv"
 )
 
+// Bitstring holds bitstrings of arbitrary length.
 type Bitstring []byte
 
+// Len returns the length of the bitstring
 func (bs Bitstring) Len() uint {
 	return uint(len(bs) * 8)
 }
 
+// Set sets the specified bit to be on.
 func (bs Bitstring) Set(n uint) {
 	pos := n / 8
 	bit := n % 8
 	bs[pos] |= 1 << bit
 }
 
+// Get returns the bit value at position n.
 func (bs Bitstring) Get(n uint) bool {
 	pos := n / 8
 	bit := n % 8
 	return (bs[pos]>>bit)&1 == 1
 }
 
+// String returns the bitstring as a string.
 func (bs Bitstring) String() string {
 	buf := bytes.Buffer{}
 	for _, b := range bs {
@@ -34,10 +39,12 @@ func (bs Bitstring) String() string {
 	return buf.String()
 }
 
+// NewBitstring creates a new Bitstring with the requested size (in bytes).
 func NewBitstring(siz int) Bitstring {
 	return make([]byte, siz)
 }
 
+// BloomFilter holds a bloom filter.
 type BloomFilter struct {
 	hfuncs [](func() hash.Hash64)
 	bits   Bitstring
@@ -84,6 +91,7 @@ func (bf *BloomFilter) makeAllHashes(v interface{}) ([]uint, error) {
 	return hashes, nil
 }
 
+// Add adds v to the set.
 func (bf *BloomFilter) Add(v interface{}) error {
 	hashes, err := bf.makeAllHashes(v)
 	if err != nil {
@@ -96,6 +104,7 @@ func (bf *BloomFilter) Add(v interface{}) error {
 	return nil
 }
 
+// Has checks if v is in the set. Note that false positives may occur.
 func (bf *BloomFilter) Has(v interface{}) (bool, error) {
 	hashes, err := bf.makeAllHashes(v)
 	if err != nil {

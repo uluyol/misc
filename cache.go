@@ -12,6 +12,7 @@ type lruObject struct {
 	Expiry time.Time
 }
 
+// LRUCache implements an LRU cache.
 type LRUCache struct {
 	cap    int
 	items  *list.List
@@ -27,6 +28,7 @@ func (ce cacheError) Error() string {
 
 var miss cacheError
 
+// NewLRUCache returns a new LRUCache object with capacity cap and expiration time of exp.
 func NewLRUCache(cap int, exp string) (*LRUCache, error) {
 	expiry, err := time.ParseDuration(exp)
 	if err != nil {
@@ -40,6 +42,8 @@ func NewLRUCache(cap int, exp string) (*LRUCache, error) {
 	return c, nil
 }
 
+// Must will panis if there is an error. Used as cache = Must(NewLRUCache(...)) for
+// initialization.
 func Must(c *LRUCache, e error) *LRUCache {
 	if e != nil {
 		panic(e)
@@ -47,6 +51,7 @@ func Must(c *LRUCache, e error) *LRUCache {
 	return c
 }
 
+// Get tries to retrive the object corresponding to the key from the cache.
 func (c *LRUCache) Get(k interface{}) (interface{}, error) {
 	e := c.lookup[k]
 	if e == nil {
@@ -65,6 +70,7 @@ func (c *LRUCache) Get(k interface{}) (interface{}, error) {
 	return o.Value, nil
 }
 
+// Set places the object in the cache.
 func (c *LRUCache) Set(k interface{}, v interface{}) {
 	if c.cap <= c.items.Len() {
 		delete(c.lookup, c.items.Back().Value.(lruObject).Key)

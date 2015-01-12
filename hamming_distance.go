@@ -24,6 +24,7 @@ var byteDist = []int8{
 	4, 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7, 7, 8,
 }
 
+// Distance compute the hamming distance (in terms of bits) between a and b.
 func Distance(a, b uint64) int8 {
 	d := a ^ b
 	buf := make([]byte, 8)

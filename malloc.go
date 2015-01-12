@@ -74,6 +74,7 @@ func (p *memoryPool) String() string {
 
 const sizeInt = 8
 
+// Malloc creates an object of size siz (bytes).
 func Malloc(siz int) unsafe.Pointer {
 	if siz <= 0 {
 		return nil
@@ -88,7 +89,7 @@ func Malloc(siz int) unsafe.Pointer {
 	searching := true
 	for searching {
 		fmt.Println("At:", pool.cur)
-		var prev *memNode = nil
+		var prev *memNode
 		for cur := pool.cur; cur != nil; prev, cur = cur, cur.next {
 			if cur.len < ssiz {
 				continue
@@ -126,8 +127,11 @@ func Malloc(siz int) unsafe.Pointer {
 	return addr
 }
 
-// Not very smart
+// Free frees the object being passed in. The object must have been allocated using
+// Malloc!
 func Free(addr unsafe.Pointer) {
+	// Not very smart.
+
 	if addr == nil {
 		return
 	}

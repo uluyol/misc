@@ -32,10 +32,13 @@ func combine(a, b pair) pair {
 	return pair{[2]pair{a, b}, a.freq + b.freq}
 }
 
+// CodeBuilder is used to create a code.
 type CodeBuilder struct {
 	pairs pairHeap
 }
 
+// Code can be used to encode and decode objects. Codes should be created using
+// a CodeBuilder.
 type Code struct {
 	encode map[interface{}]string
 	decode map[string]interface{}
