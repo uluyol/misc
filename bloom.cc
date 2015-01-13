@@ -104,7 +104,6 @@ std::string BloomFilter<T>::to_string() {
 }
 
 int main(int argc, const char **argv) {
-	// Ignore memory leaks here
 	BloomFilter<std::string> bf(10);
 	std::cout << bf.to_string() << std::endl;
 	bf.add("Happy");
