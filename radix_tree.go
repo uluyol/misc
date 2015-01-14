@@ -108,8 +108,8 @@ func (n *node) setParent(k string, v interface{}) {
 }
 
 func (n *node) set(k string, v interface{}) {
-	top, newkey, stat := n.search(k)
-	if stat {
+	top, newkey, found := n.search(k)
+	if found {
 		top.data = v
 	} else {
 		top.setParent(newkey, v)
