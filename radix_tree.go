@@ -137,6 +137,14 @@ func (s Set) Set(k string, v interface{}) {
 	s.root.set(k, v)
 }
 
+func extend(a, b []*node) []*node {
+	c := a
+	for _, v := range b {
+		c = append(c, v)
+	}
+	return c
+}
+
 func (s Set) Delete(k string) {
 	p, i := s.root.getParent(k)
 	if i < 0 {
@@ -144,6 +152,11 @@ func (s Set) Delete(k string) {
 	}
 	p.children[i] = p.children[len(p.children)-1]
 	p.children = p.children[:len(p.children)-1]
+	if len(p.children) == 1 {
+		p.label += p.children[0].label
+		p.data = p.children[0].data
+		p.children = p.children[:0]
+	}
 }
 
 type queue struct {
