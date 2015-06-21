@@ -1,0 +1,70 @@
+#!/bin/bash
+solutions=('001:233168'
+           '002:4613732'
+           '003:6857'
+           '004:906609'
+           '005:232792560'
+           '006:25164150'
+           '007:104743'
+           '008:40824'
+           '009:31875000'
+           '010:142913828922'
+           '011:70600674'
+           '012:76576500'
+           '013:5537376230'
+           '014:837799'
+           '015:137846528820'
+           '016:1366'
+           '017:21124'
+           '018:1074'
+           '019:171'
+           '020:648'
+           '022:871198282'
+           '025:4782'
+           '027:-59231'
+           '029:9183'
+           '036:872187'
+           '037:748317'
+           '038:932718654'
+           '039:840'
+           '040:210'
+           '067:7273')
+
+test_problem() {
+	name=$1
+	sol=$2
+	if [[ ! -e $name ]]; then
+		make $name 2>/dev/null
+		if (( $? != 0 )); then
+			return
+		fi
+	fi
+	out=$(eval ./$name)
+	osol=$(awk '{print $3;}' <<<$out)
+	if [[ $osol == $sol ]]; then
+		echo "  GOOD $name"
+	else
+		echo "  BAD  $name"
+		echo "$sol -> $osol"
+	fi
+}
+
+if [[ -n $1 ]]; then
+	sol=''
+	for ((i=0; i<${#solutions[@]}; i++)); do
+		if [[ p${solutions[i]//:*/} == $1 ]]; then
+			sol=${solutions[i]//*:/}
+		fi
+	done
+	if [[ -z $sol ]]; then
+		exit 1
+	fi
+	test_problem "$1" "$sol"
+	exit
+fi
+
+for ((i=0; i<${#solutions[@]}; i++)); do
+	num=${solutions[i]//:*/}
+	sol=${solutions[i]//*:/}
+	test_problem "p$num" "$sol"
+done
