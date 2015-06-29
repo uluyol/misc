@@ -1,1 +1,2 @@
 Rettalike.xml : A gtksourceview style based on the Eclipse Color Theme named Retta
+minimal.tmTheme : A TextMate/Sublime Text theme based on Chris Kempson's Eighties Dark. This has much of the syntax highlighting removed and contrast has been increased.
